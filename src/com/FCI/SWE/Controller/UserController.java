@@ -93,7 +93,7 @@ public class UserController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String response(@FormParam("uname") String uname,
 			@FormParam("email") String email, @FormParam("password") String pass) {
-		String serviceUrl = "http://fci-swe-apps.appspot.com/rest/RegistrationService";
+		String serviceUrl = "http://localhost:8888/rest/RegistrationService";
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uname=" + uname + "&email=" + email
@@ -159,7 +159,7 @@ public class UserController {
 	@Produces("text/html")
 	public Response home(@FormParam("uname") String uname,
 			@FormParam("password") String pass) {
-		String serviceUrl = "http://fci-swe-apps.appspot.com/rest/LoginService";
+		String serviceUrl = "http://localhost:8888//rest/LoginService";
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uname=" + uname + "&password=" + pass;
