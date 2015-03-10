@@ -25,7 +25,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.FCI.SWE.Controller.UserController;
 import com.FCI.SWE.ServicesModels.UserEntity;
 
 /**
@@ -93,45 +92,5 @@ public class UserServices {
 		return object.toString();
 
 	}
-	
-	@POST
-	@Path("/FriendRequestService")
-	public String FriendRequestService(@FormParam("email") String email,
-			@FormParam("currentUserEmail") String currentUserEmail) {
-		JSONObject object = new JSONObject();
-		
-		
-		if (UserEntity.addfriend(email, currentUserEmail) == false) {
-			object.put("Status", "Failed");
-
-		} else {
-			object.put("Status", "OK");
-		}
-		return object.toString();
-
-	}
-	
-	/*@POST
-	@Path("/FriendRequestService")
-	public String FriendRequestService(@FormParam("email") String email, ) {
-		
-		JSONObject object = new JSONObject();
-		
-		String currentUserEmail = com.FCI.SWE.Controller.UserController.map.get("email");
-		UserEntity currentUser = UserEntity.getUser(currentUserEmail);
-
-		
-		
-		if (currentUser.sendFriendRequest(email) == false) {
-
-			object.put("Status", "Failed");
-
-		} else {
-
-			object.put("Status", "OK");
-		}
-		return object.toString();
-
-	}*/
 
 }

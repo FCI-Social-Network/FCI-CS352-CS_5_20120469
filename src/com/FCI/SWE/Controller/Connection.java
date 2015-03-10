@@ -8,16 +8,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 public class Connection {
 
-	public static String connect(String serviceUrl, String urlParameters,
-			String methodType, String contentType) {
-		//System.out.println(serviceUrl);
+	public static String connect(String serviceUrl, String urlParameters, String methodType, String contentType) {
+		// System.out.println(serviceUrl);
 		try {
 			URL url = new URL(serviceUrl);
-			HttpURLConnection connection = (HttpURLConnection) url
-					.openConnection();
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setDoOutput(true);
 			connection.setDoInput(true);
 			connection.setInstanceFollowRedirects(false);
@@ -25,13 +22,11 @@ public class Connection {
 			connection.setConnectTimeout(60000); // 60 Seconds
 			connection.setReadTimeout(60000); // 60 Seconds
 			connection.setRequestProperty("Content-Type", contentType);
-			OutputStreamWriter writer = new OutputStreamWriter(
-					connection.getOutputStream());
+			OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
 			writer.write(urlParameters);
 			writer.flush();
 			String line, retJson = "";
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
 			while ((line = reader.readLine()) != null) {
 				retJson += line;
@@ -43,7 +38,7 @@ public class Connection {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 		return null;
 	}
 
