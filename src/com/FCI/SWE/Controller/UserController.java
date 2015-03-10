@@ -96,6 +96,12 @@ public class UserController {
 		return Response.ok(new Viewable("/jsp/login")).build();
 	}
 	
+        @GET
+	@Path("/logout")
+	public Response logout() {
+		return Response.ok(new Viewable("/jsp/logout")).build();
+	}
+        
 	@GET
 	@Path("/sendFriendRequest")
 	public Response sendFriendRequest() {

@@ -11,5 +11,7 @@
 <p> <a href="/social/sendFriendRequest">Send friend request</a> </p>
 <p> <a href="/social/acceptFriendRequests">Accept a pending friend requests</a> </p>
 
+<br><br>
+<a href="/social/logout">logout</a>
 </body>
 </html>
