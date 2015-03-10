@@ -40,6 +40,9 @@ import com.FCI.SWE.ServicesModels.UserEntity;
 @Path("/")
 @Produces("text/html")
 public class UserController {
+	
+	public static String currentUserEmail = null;
+	
 	/**
 	 * Action function to render Signup page, this function will be executed
 	 * using url like this /rest/signup
@@ -92,7 +95,18 @@ public class UserController {
 	public Response login() {
 		return Response.ok(new Viewable("/jsp/login")).build();
 	}
-		
+	
+	@GET
+	@Path("/sendFriendRequest")
+	public Response sendFriendRequest() {
+		return Response.ok(new Viewable("/jsp/sendFriendRequest")).build();
+	}
+	
+	@GET
+	@Path("/acceptFriendRequests")
+	public Response acceptFriendRequests() {
+		return Response.ok(new Viewable("/jsp/acceptFriendRequests")).build();
+	}
 
 	/**
 	 * Action function to response to signup request, This function will act as
@@ -113,7 +127,7 @@ public class UserController {
 	public String response(@FormParam("uname") String uname,
 			@FormParam("email") String email, @FormParam("password") String pass) {
 
-		String serviceUrl = "http://fci-swe-apps.appspot.com/rest/RegistrationService";
+		String serviceUrl = "http://localhost:8888/rest/RegistrationService";
 		String urlParameters = "uname=" + uname + "&email=" + email
 				+ "&password=" + pass;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -158,7 +172,7 @@ public class UserController {
 		String urlParameters = "uname=" + uname + "&password=" + pass;
 
 		String retJson = Connection.connect(
-				"http://fci-swe-apps.appspot.com/rest/LoginService", urlParameters,
+				"http://localhost:8888/rest/LoginService", urlParameters,
 				"POST", "application/x-www-form-urlencoded;charset=UTF-8");
 
 		JSONParser parser = new JSONParser();
@@ -172,6 +186,7 @@ public class UserController {
 			User user = User.getUser(object.toJSONString());
 			map.put("name", user.getName());
 			map.put("email", user.getEmail());
+			currentUserEmail = user.getEmail();
 			return Response.ok(new Viewable("/jsp/home", map)).build();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -185,5 +200,65 @@ public class UserController {
 		return null;
 
 	}
+	
+	@POST
+	@Path("/sendFriendRequestResponse")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String sendFriendRequest(@FormParam("email") String email) {
 
+		String serviceUrl = "http://localhost:8888/rest/FriendRequestService";
+		String urlParameters = "email=" + email + "&currentUserEmail=" + currentUserEmail;
+			
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		JSONParser parser = new JSONParser();
+		Object obj;
+		try {
+			
+			// System.out.println(retJson);
+			obj = parser.parse(retJson);
+			JSONObject object = (JSONObject) obj;
+			if (object.get("Status").equals("OK")){
+				return "Friend Request Sent Successfully";
+			}else{
+				return "Request Failed to Send";
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "Parsing Exception";
+	}/**/
+
+	@POST
+	@Path("/acceptFriendRequestResponse")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String acceptFriendRequest(@FormParam("email") String email) {
+
+		String serviceUrl = "http://localhost:8888/rest/acceptFriendRequestService";
+		String urlParameters = "email=" + email + "&currentUserEmail=" + currentUserEmail;
+			
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		JSONParser parser = new JSONParser();
+		Object obj;
+		try {
+			
+			// System.out.println(retJson);
+			obj = parser.parse(retJson);
+			JSONObject object = (JSONObject) obj;
+			if (object.get("Status").equals("OK")){
+				return "Friend Request Accepted";
+			}else{
+				return "Friend Request is not Accepted";
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "Parsing Exception";
+	}/**/
 }
+
+
+

@@ -1,5 +1,6 @@
-
 package com.FCI.SWE.Models;
+
+import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -50,7 +51,7 @@ public class User {
 	public String getPass() {
 		return password;
 	}
-	
+
 	public static User getCurrentActiveUser(){
 		return currentActiveUser;
 	}

@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p> Welcome b2a ya ${it.name} </p>
-<p> <a href="/social/sendFriendRequest">Send friend request</a> </p>
-<p> <a href="/social/acceptFriendRequests">Accept a pending friend requests</a> </p>
-
+<form action="/social/acceptFriendRequestResponse" method="post">
+  Email : <input type="text" name="email" /> <br>
+  <input type="submit" value="send friend request">
+  
+  </form>
 </body>
 </html>
