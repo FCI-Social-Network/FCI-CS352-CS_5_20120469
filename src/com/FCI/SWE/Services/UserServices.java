@@ -80,6 +80,7 @@ public class UserServices {
 			@FormParam("password") String pass) {
 		JSONObject object = new JSONObject();
 		UserEntity user = UserEntity.getUser(uname, pass);
+		
 		if (user == null) {
 			object.put("Status", "Failed");
 

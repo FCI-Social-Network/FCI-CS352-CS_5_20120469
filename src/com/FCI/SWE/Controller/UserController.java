@@ -53,7 +53,7 @@ public class UserController {
 	@Path("/doSearch")
 	public Response usersList(@FormParam("uname") String uname){
 		System.out.println(uname);
-		String serviceUrl = "http://localhost/rest/SearchService";
+		String serviceUrl = "http://fci-social-network.appspot.com/rest/SearchService";
 		String urlParameters = "uname=" + uname;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
@@ -133,7 +133,7 @@ public class UserController {
 	public String response(@FormParam("uname") String uname,
 			@FormParam("email") String email, @FormParam("password") String pass) {
 
-		String serviceUrl = "http://localhost:8888/rest/RegistrationService";
+		String serviceUrl = "http://fci-social-network.appspot.com/rest/RegistrationService";
 		String urlParameters = "uname=" + uname + "&email=" + email
 				+ "&password=" + pass;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -176,9 +176,9 @@ public class UserController {
 	public Response home(@FormParam("uname") String uname,
 			@FormParam("password") String pass) {
 		String urlParameters = "uname=" + uname + "&password=" + pass;
-
+		
 		String retJson = Connection.connect(
-				"http://localhost:8888/rest/LoginService", urlParameters,
+				"http://fci-social-network.appspot.com/rest/LoginService", urlParameters,
 				"POST", "application/x-www-form-urlencoded;charset=UTF-8");
 
 		JSONParser parser = new JSONParser();
@@ -212,7 +212,7 @@ public class UserController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String sendFriendRequest(@FormParam("email") String email) {
 
-		String serviceUrl = "http://localhost:8888/rest/FriendRequestService";
+		String serviceUrl = "http://fci-social-network.appspot.com/rest/FriendRequestService";
 		String urlParameters = "email=" + email + "&currentUserEmail=" + currentUserEmail;
 			
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -241,7 +241,7 @@ public class UserController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String acceptFriendRequest(@FormParam("email") String email) {
 
-		String serviceUrl = "http://localhost:8888/rest/acceptFriendRequestService";
+		String serviceUrl = "http://fci-social-network.appspot.com/rest/acceptFriendRequestService";
 		String urlParameters = "email=" + email + "&currentUserEmail=" + currentUserEmail;
 			
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
